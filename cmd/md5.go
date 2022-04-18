@@ -21,7 +21,7 @@ var md5Cmd = &cobra.Command{
 			fmt.Println("Input string in quote")
 		}
 		data := []byte(args[0])
-		fmt.Printf("%x", md5.Sum(data))
+		fmt.Printf("%x\n", md5.Sum(data))
 	},
 }
 
