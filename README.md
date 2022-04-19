@@ -1,8 +1,9 @@
 # Introduction
 
-Small tool provides some CLI command to generate stuffs I often use when developing softwares
+When developing softwars, I often have to create some random stuffs and confiugraion over and over, so I make this
+small CLI tool to make my life easier.
 
-## Support command
+This tool call quickgen, it supports the following command, please check command help for more detail.
 
 * Generate UUID
 * Generate MD5
@@ -10,6 +11,11 @@ Small tool provides some CLI command to generate stuffs I often use when develop
 * Format JSON
 * Generate Dockerfile for Golang app
 * Generate Makefile for Golang app
+
+## Installation
+
+Download the prebuild binary for your OS [Relase](https://github.com/phucngodev/quickgen/releases/)
+and put it in your PATH if you want for convenience
 
 
 ## Usage
