@@ -1,2 +1,57 @@
-build:
-	go build -o quickgen main.go
+APPNAME=quickgen
+DEST=bin
+SRC=main.go
+$(shell mkdir -p $(DEST))
+OUT_PUT=bin/$(APPNAME)
+
+# Version info
+COMMIT := $(shell git rev-parse --short HEAD)
+VERSION := $(shell git describe --tags `git rev-list --tags --max-count=1`)
+BUILD_DATE := $(shell date '+%Y%m%d')
+FLAGS := -ldflags "-X quickgen/cmd.Version=$(VERSION) -X quickgen/cmd.Commit=$(COMMIT) -X quickgen/cmd.BuildDate=$(BUILD_DATE)"
+
+
+.PHONY: build
+build: build-macos build-linux build-window
+	@echo "Build done!"
+
+
+build-linux: build-linux-64
+	echo "Linux build done"
+
+build-linux-64:
+	go env -w GOOS=linux
+	go env -w GOARCH=amd64
+	go build $(FLAGS) -o $(OUT_PUT)-linux-amd64 $(SRC)
+
+build-linux-32:
+	go env -w GOOS=linux
+	go env -w GOARCH=386
+	go build $(FLAGS) -o $(OUT_PUT)-linux-386 $(SRC)
+
+
+build-macos:
+	@echo "Building macOS"
+	go env -w GOOS=darwin
+	go env -w GOARCH=amd64
+	go build $(FLAGS) -o $(OUT_PUT)-darwin $(SRC)
+	echo "macOS build done!"
+
+
+build-window: build-windows-64
+	@echo "Windows Build done!"
+
+build-windows-64:
+	go env -w GOOS=windows
+	go env -w GOARCH=amd64
+	go build $(FLAGS) -o $(OUT_PUT)-windows-amd64.exe $(SRC)
+
+
+.PHONY: test
+test:
+	go test -race -v -cover -covermode=atomic -coverprofile=coverage.out ./...
+
+.PHONY: clean
+clean:
+	@rm bin/*
+	@rm coverage.out
