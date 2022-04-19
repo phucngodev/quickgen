@@ -12,7 +12,7 @@ FLAGS := -ldflags "-X quickgen/cmd.Version=$(VERSION) -X quickgen/cmd.Commit=$(C
 
 
 .PHONY: build
-build: build-macos build-linux build-window
+build:  build-linux build-window build-macos
 	@echo "Build done!"
 
 

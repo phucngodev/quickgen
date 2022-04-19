@@ -26,7 +26,6 @@ package cmd
 
 import (
 	"errors"
-	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -50,7 +49,7 @@ var jsonPrettyCmd = &cobra.Command{
 }
 
 func init() {
-	flag.BoolVar(&saveToFile, "w", false, "save result to file")
+	jsonPrettyCmd.Flags().BoolVar(&saveToFile, "w", false, "save result to file")
 	jsonCmd.AddCommand(jsonPrettyCmd)
 }
 

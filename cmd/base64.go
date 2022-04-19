@@ -28,6 +28,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// encode/decode base64 URL compatible
+var urlEncode bool
+
 // base64Cmd represents the base64 command
 var base64Cmd = &cobra.Command{
 	Use:   "base64",
@@ -36,5 +39,6 @@ var base64Cmd = &cobra.Command{
 }
 
 func init() {
+	base64Cmd.PersistentFlags().BoolVar(&urlEncode, "url", false, "Encode/Decode base64 URL compatible")
 	rootCmd.AddCommand(base64Cmd)
 }

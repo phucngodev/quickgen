@@ -31,20 +31,25 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// encodeCmd represents the encode command
-var base64EncodeCmd = &cobra.Command{
-	Use:   "encode",
-	Short: "Encode base64",
-	Long:  "Encode base64",
+// decodeCmd represents the decode command
+var base64DecodeCmd = &cobra.Command{
+	Use:   "decode",
+	Short: "Decode base64",
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) < 1 {
 			fmt.Println("Input string in quote")
+			return
 		}
-		data := []byte(args[0])
-		fmt.Println(base64.StdEncoding.EncodeToString([]byte(data)))
+
+		if urlEncode {
+			fmt.Println(base64.URLEncoding.DecodeString(args[0]))
+			return
+		}
+
+		fmt.Println(base64.StdEncoding.DecodeString(args[0]))
 	},
 }
 
 func init() {
-	base64Cmd.AddCommand(base64EncodeCmd)
+	base64Cmd.AddCommand(base64DecodeCmd)
 }
